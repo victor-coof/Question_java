@@ -4,209 +4,133 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
+        // Criando o array de questões
+        Questao[] questions = criarQuestoes();
+
         int acertos = 0;
         int erros = 0;
-        int totalQuestoes = 15;
-        String resposta;
+        int totalQuestoes = questions.length;
 
         System.out.println("=== QUIZ DE CONHECIMENTOS GERAIS ===\n");
 
-        // Questão 1
-        System.out.println("1. Qual é a capital da França?");
-        System.out.println("a) Londres\nb) Paris\nc) Roma\nd) Madri");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("b")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: b) Paris\n");
-            erros++;
+        // Executando o quiz
+        for (int i = 0; i < questions.length; i++) {
+            questions[i].exibirQuestao(i + 1);
+            System.out.print("Resposta: ");
+            String resposta = sc.nextLine().toLowerCase();
+
+            if (questions[i].verificarResposta(resposta)) {
+                System.out.println("✓ Correto!\n");
+                acertos++;
+            } else {
+                System.out.println("✗ Errado! A resposta correta é: " +
+                        questions[i].getLetraCorreta() + ") " + questions[i].getRespostaCorreta() + "\n");
+                erros++;
+            }
         }
 
-        // Questão 2
-        System.out.println("2. Quem desenvolveu a teoria da relatividade?");
-        System.out.println("a) Isaac Newton\nb) Albert Einstein\nc) Galileu Galilei\nd) Stephen Hawking");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("b")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: b) Albert Einstein\n");
-            erros++;
-        }
+        // Exibindo resultados
+        exibirResultados(acertos, erros, totalQuestoes);
+        sc.close();
+    }
 
-        // Questão 3
-        System.out.println("3. Qual é o maior animal terrestre?");
-        System.out.println("a) Girafa\nb) Rinoceronte\nc) Elefante africano\nd) Hipopótamo");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("c")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: c) Elefante africano\n");
-            erros++;
-        }
+    private static Questao[] criarQuestoes() {
+        Questao[] questions = new Questao[15];
 
-        // Questão 4
-        System.out.println("4. Em que ano acabou a Segunda Guerra Mundial?");
-        System.out.println("a) 1943\nb) 1944\nc) 1945\nd) 1946");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("c")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: c) 1945\n");
-            erros++;
-        }
+        questions[0] = new Questao(
+                "Qual é a capital do Brasil?",
+                new String[]{"a) São Paulo", "b) Rio de Janeiro", "c) Brasília", "d) Salvador"},
+                "Brasília", "c"
+        );
 
-        // Questão 5
-        System.out.println("5. Qual é o menor país do mundo?");
-        System.out.println("a) Mônaco\nb) Vaticano\nc) San Marino\nd) Malta");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("b")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: b) Vaticano\n");
-            erros++;
-        }
+        questions[1] = new Questao(
+                "Quantos continentes existem no mundo?",
+                new String[]{"a) 5", "b) 6", "c) 7", "d) 8"},
+                "6", "b"
+        );
 
-        // Questão 6
-        System.out.println("6. Quantos planetas existem no Sistema Solar?");
-        System.out.println("a) 7\nb) 8\nc) 9\nd) 10");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("b")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: b) 8\n");
-            erros++;
-        }
+        questions[2] = new Questao(
+                "Quem pintou a Mona Lisa?",
+                new String[]{"a) Michelangelo", "b) Leonardo da Vinci", "c) Rafael", "d) Donatello"},
+                "Leonardo da Vinci", "b"
+        );
 
-        // Questão 7
-        System.out.println("7. Qual é o rio mais longo do mundo?");
-        System.out.println("a) Rio Nilo\nb) Rio Amazonas\nc) Rio Yangtzé\nd) Rio Mississipi");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("a")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: a) Rio Nilo\n");
-            erros++;
-        }
+        questions[3] = new Questao(
+                "Qual é o maior planeta do Sistema Solar?",
+                new String[]{"a) Terra", "b) Marte", "c) Júpiter", "d) Saturno"},
+                "Júpiter", "c"
+        );
 
-        // Questão 8
-        System.out.println("8. Qual é o gás mais abundante na atmosfera terrestre?");
-        System.out.println("a) Oxigênio\nb) Nitrogênio\nc) Dióxido de carbono\nd) Hidrogênio");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("b")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: b) Nitrogênio\n");
-            erros++;
-        }
+        questions[4] = new Questao(
+                "Em que ano o homem pisou na Lua pela primeira vez?",
+                new String[]{"a) 1965", "b) 1969", "c) 1972", "d) 1975"},
+                "1969", "b"
+        );
 
-        // Questão 9
-        System.out.println("9. Quem pintou 'A Última Ceia'?");
-        System.out.println("a) Michelangelo\nb) Leonardo da Vinci\nc) Rafael\nd) Caravaggio");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("b")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: b) Leonardo da Vinci\n");
-            erros++;
-        }
+        questions[5] = new Questao(
+                "Qual é o metal mais abundante na crosta terrestre?",
+                new String[]{"a) Ferro", "b) Alumínio", "c) Cobre", "d) Ouro"},
+                "Alumínio", "b"
+        );
 
-        // Questão 10
-        System.out.println("10. Qual é a montanha mais alta do mundo?");
-        System.out.println("a) K2\nb) Monte Kilimanjaro\nc) Monte Everest\nd) Monte Fuji");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("c")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: c) Monte Everest\n");
-            erros++;
-        }
+        questions[6] = new Questao(
+                "Quem escreveu 'Dom Casmurro'?",
+                new String[]{"a) José de Alencar", "b) Machado de Assis", "c) Carlos Drummond de Andrade", "d) Clarice Lispector"},
+                "Machado de Assis", "b"
+        );
 
-        // Questão 11
-        System.out.println("11. Quantos dentes tem um ser humano adulto?");
-        System.out.println("a) 28\nb) 30\nc) 32\nd) 34");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("c")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: c) 32\n");
-            erros++;
-        }
+        questions[7] = new Questao(
+                "Qual é a fórmula química da água?",
+                new String[]{"a) H2O", "b) CO2", "c) O2", "d) NaCl"},
+                "H2O", "a"
+        );
 
-        // Questão 12
-        System.out.println("12. Qual é o metal mais precioso?");
-        System.out.println("a) Ouro\nb) Platina\nc) Ródio\nd) Prata");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("c")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: c) Ródio\n");
-            erros++;
-        }
+        questions[8] = new Questao(
+                "Quantos estados tem o Brasil?",
+                new String[]{"a) 24", "b) 25", "c) 26", "d) 27"},
+                "26", "c"
+        );
 
-        // Questão 13
-        System.out.println("13. Em que continente fica o Egito?");
-        System.out.println("a) Ásia\nb) África\nc) Europa\nd) América");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("b")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: b) África\n");
-            erros++;
-        }
+        questions[9] = new Questao(
+                "Qual é o oceano mais profundo do mundo?",
+                new String[]{"a) Atlântico", "b) Índico", "c) Ártico", "d) Pacífico"},
+                "Pacífico", "d"
+        );
 
-        // Questão 14
-        System.out.println("14. Qual é a língua mais falada no mundo?");
-        System.out.println("a) Inglês\nb) Mandarim\nc) Espanhol\nd) Hindi");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("b")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: b) Mandarim\n");
-            erros++;
-        }
+        questions[10] = new Questao(
+                "Qual é a velocidade da luz no vácuo?",
+                new String[]{"a) 150.000 km/s", "b) 200.000 km/s", "c) 300.000 km/s", "d) 400.000 km/s"},
+                "300.000 km/s", "c"
+        );
 
-        // Questão 15
-        System.out.println("15. Qual é o órgão do corpo humano que bombeia sangue?");
-        System.out.println("a) Fígado\nb) Pulmão\nc) Coração\nd) Rim");
-        System.out.print("Resposta: ");
-        resposta = sc.nextLine().toLowerCase();
-        if (resposta.equals("c")) {
-            System.out.println("✓ Correto!\n");
-            acertos++;
-        } else {
-            System.out.println("✗ Errado! A resposta correta é: c) Coração\n");
-            erros++;
-        }
+        questions[11] = new Questao(
+                "Quem descobriu o Brasil?",
+                new String[]{"a) Cristóvão Colombo", "b) Pedro Álvares Cabral", "c) Vasco da Gama", "d) Fernando de Magalhães"},
+                "Pedro Álvares Cabral", "b"
+        );
 
-        // Resultado Final
+        questions[12] = new Questao(
+                "Qual é o menor país do mundo?",
+                new String[]{"a) Mônaco", "b) San Marino", "c) Vaticano", "d) Liechtenstein"},
+                "Vaticano", "c"
+        );
+
+        questions[13] = new Questao(
+                "Quantos ossos tem o corpo humano adulto?",
+                new String[]{"a) 186", "b) 206", "c) 226", "d) 246"},
+                "206", "b"
+        );
+
+        questions[14] = new Questao(
+                "Qual é a moeda oficial do Japão?",
+                new String[]{"a) Yuan", "b) Won", "c) Iene", "d) Rupia"},
+                "Iene", "c"
+        );
+
+        return questions;
+    }
+
+    private static void exibirResultados(int acertos, int erros, int totalQuestoes) {
         double porcentagemAcertos = (acertos * 100.0) / totalQuestoes;
         double porcentagemErros = (erros * 100.0) / totalQuestoes;
 
@@ -221,13 +145,11 @@ public class Main {
         System.out.println("=================================");
 
         if (porcentagemAcertos >= 80) {
-            System.out.println("Brabo! Parabéns!");
+            System.out.println("Excelente! Parabéns!");
         } else if (porcentagemAcertos >= 60) {
             System.out.println("Bom trabalho! Continue estudando!");
         } else {
-            System.out.println("Bora aumentar esse Q.I");
+            System.out.println("Você pode melhorar! Estude mais!");
         }
-
-        sc.close();
     }
 }
